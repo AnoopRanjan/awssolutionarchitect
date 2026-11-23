@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Day {{ day.day }}: {{ day.title }} - AWS Solutions Architect{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Top Navigation Breadcrumbs & Next/Prev -->
+    <div class="flex items-center justify-between">
+        <a href="{{ url_for('roadmap') }}?phase={{ day.phase }}" class="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-orange-600 transition text-decoration-none">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <span>Back to Phase {{ day.phase }} Roadmap</span>
+        </a>
+
+        <div class="flex items-center gap-2">
+            {% if prev_day %}
+            <a href="{{ url_for('day_detail', day_num=prev_day) }}" class="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 transition text-decoration-none shadow-xs">
+                ← Day {{ prev_day }}
+            </a>
+            {% endif %}
+            {% if next_day %}
+            <a href="{{ url_for('day_detail', day_num=next_day) }}" class="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-300 transition text-decoration-none shadow-xs">
+                Day {{ next_day }} →
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Day Header Card -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-orange-100 text-orange-800 border border-orange-200">Day {{ day.day }} of 35</span>
+                    <span class="text-xs text-slate-500">Phase {{ day.phase }}: {{ day.phase_title }}</span>
+                    {% if day.milestone %}
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300">
+                        Milestone Day
+                    </span>
+                    {% endif %}
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{{ day.title }}</h1>
+                <p class="text-sm text-slate-600 leading-relaxed">{{ day.objective }}</p>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="toggleDayProgress({{ day.day }}, event)" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition border {% if day_status.completed %}bg-emerald-50 text-emerald-700 border-emerald-300{% else %}bg-white text-slate-700 border-slate-300 hover:bg-slate-50{% endif %} shadow-xs">
+                    <span id="day-check-{{ day.day }}" class="w-4 h-4 rounded border flex items-center justify-center {% if day_status.completed %}opacity-100 bg-emerald-500 border-emerald-500 text-white{% else %}opacity-0 border-slate-300{% endif %}">
+                        ✓
+                    </span>
+                    <span>{% if day_status.completed %}Completed{% else %}Mark as Done{% endif %}</span>
+                </button>
+            </div>
+        </div>
+
+        {% if topic %}
+        <div class="pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
+            <span class="text-slate-500">Associated Domain:</span>
+            <a href="{{ url_for('topic_detail', topic_id=topic.id) }}" class="text-orange-700 hover:underline font-semibold flex items-center gap-1 text-decoration-none">
+                <span>Topic {{ topic.id }}: {{ topic.title }} ({{ topic.exams | join(', ') }})</span> →
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Java Developer to AWS Architectural Bridge -->
+    {% if day.java_bridge %}
+    <div class="bg-gradient-to-r from-orange-50 via-amber-50 to-white border border-orange-200 rounded-2xl p-6 shadow-xs space-y-2">
+        <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-lg bg-orange-600 text-white flex items-center justify-center font-bold text-sm">☕</span>
+            <h2 class="text-xs sm:text-sm font-bold text-orange-950 uppercase tracking-wider m-0">Java Developer to AWS Architectural Bridge</h2>
+        </div>
+        <p class="text-sm text-slate-700 leading-relaxed m-0 font-medium pl-9">
+            {{ day.java_bridge }}
+        </p>
+    </div>
+    {% endif %}
+
+    <!-- 3-Block Task Execution Container -->
+    <div class="space-y-6">
+
+        <!-- 1. Morning Block: Theory, AWS Docs & Video Course -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="p-1.5 rounded-lg bg-orange-50 text-orange-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </span>
+                    <h2 class="text-base font-bold text-slate-900 uppercase tracking-wider">Morning: Theory, AWS Docs & Video Masterclass</h2>
+                </div>
+                <span class="text-xs text-slate-500">~60 Mins</span>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <h3 class="text-sm font-semibold text-orange-700 mb-1">Assigned Task:</h3>
+                <p class="text-sm text-slate-700 leading-relaxed">{{ day.morning_task }}</p>
+            </div>
+
+            <!-- Embedded Video & AWS Documentation Links -->
+            {% if topic %}
+            <div class="space-y-4 pt-2">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Curated AWS Documentation & Whitepapers</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {% for link in topic.msdn_links[:2] %}
+                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-50 hover:bg-orange-50/40 border border-slate-200 hover:border-orange-300 transition flex items-start gap-3 group text-decoration-none shadow-xs">
+                        <span class="p-2 rounded-lg bg-orange-100 text-orange-700 group-hover:scale-105 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </span>
+                        <div class="space-y-1">
+                            <div class="text-xs font-bold text-slate-800 group-hover:text-orange-700 transition">{{ link.title }}</div>
+                            <div class="text-[11px] text-slate-500 line-clamp-2">{{ link.desc }}</div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-4">
+                    {% set day_video_embed = day.video_embed or topic.youtube_embed %}
+                    {% set day_video_title = day.video_title or topic.youtube_title %}
+                    {% set day_video_url = day.video_url or topic.youtube_url %}
+                    {% set day_instructor = day.video_instructor or topic.instructor or 'Technical Training' %}
+
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-800 border border-orange-200">
+                                {{ day_instructor }}
+                            </span>
+                            {% if day.video_duration %}
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                                {{ day.video_duration }}
+                            </span>
+                            {% endif %}
+                            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Video Course</h3>
+                        </div>
+                        <a href="{{ day_video_url }}" target="_blank" rel="noopener noreferrer" class="text-xs text-orange-700 hover:underline text-decoration-none">
+                            Open on YouTube ↗
+                        </a>
+                    </div>
+                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-200 shadow-md">
+                        <iframe class="w-full h-full" src="{{ day_video_embed }}" title="{{ day_video_title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- 2. Afternoon Block: Hands-on Lab -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </span>
+                    <h2 class="text-base font-bold text-slate-900 uppercase tracking-wider">Afternoon: Hands-on AWS Implementation Lab</h2>
+                </div>
+                <span class="text-xs text-slate-500">~60 Mins</span>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <h3 class="text-sm font-semibold text-emerald-700 mb-1">Today's Lab Objective:</h3>
+                <p class="text-sm text-slate-700 leading-relaxed">{{ day.afternoon_task }}</p>
+            </div>
+
+            {% if topic and topic.lab_guide %}
+            <div class="space-y-3 pt-2">
+                <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">{{ topic.lab_guide.title }}</h3>
+                <div class="space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    {% for step in topic.lab_guide.steps %}
+                    <div class="flex items-start gap-2.5 text-xs text-slate-700">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0"></span>
+                        <span class="font-mono">{{ step }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- 3. Evening Block: Scenario & Interview Defense -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="p-1.5 rounded-lg bg-amber-50 text-amber-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    </span>
+                    <h2 class="text-base font-bold text-slate-900 uppercase tracking-wider">Evening: AWS Solutions Architect Defense</h2>
+                </div>
+                <span class="text-xs text-slate-500">~30 Mins</span>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <h3 class="text-sm font-semibold text-amber-800 mb-1">Architecture Defense Scenario:</h3>
+                <p class="text-sm text-slate-700 leading-relaxed">{{ day.evening_task }}</p>
+            </div>
+
+            {% if topic %}
+            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 leading-relaxed">
+                <strong class="text-amber-800 font-semibold block mb-1">Architectural Takeaway:</strong>
+                {{ topic.fde_perspective }}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Day Notes Log Section -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+            <h2 class="text-base font-bold text-slate-900 uppercase tracking-wider">Your Personal Lab Journal (Day {{ day.day }})</h2>
+            <textarea id="day-notes-{{ day.day }}" rows="4" placeholder="Record commands, architecture insights, CLI snippets, or exam notes for Day {{ day.day }}..." class="w-full bg-white border border-slate-300 rounded-xl p-3 text-sm text-slate-800 focus:outline-none focus:border-orange-500">{{ day_status.notes }}</textarea>
+            <div class="flex justify-end">
+                <button onclick="saveDayNotes({{ day.day }})" class="px-5 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold transition shadow-sm">
+                    Save Notes to Cloud
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

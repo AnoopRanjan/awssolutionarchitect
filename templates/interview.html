@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Studio & Positioning Pack - AWS Solutions Architect{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- Header -->
+    <div class="space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 border border-orange-200 text-orange-800 text-xs font-semibold uppercase tracking-wider">
+            Architecture Defense & Executive Readiness
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900">AWS Solutions Architect Interview Studio & Pitch Pack</h1>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-4xl">
+            Strategic positioning guide, verbatim elevator pitch, and 20 deep technical scenario questions with model answers designed to position your Java microservices foundation directly into high-scale AWS Solutions Architecture.
+        </p>
+    </div>
+
+    <!-- Verbatim Elevator Pitch Card -->
+    <div class="bg-gradient-to-r from-orange-50/80 via-amber-50/40 to-white border border-orange-200/80 rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+            <div>
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange-600"></span>
+                    <span>Your 60-Second Architectural Pitch</span>
+                </h2>
+                <p class="text-xs text-orange-800 mt-0.5">Use this exact talk-track when the interviewer asks: "Tell me about yourself and your transition from Java to AWS Solutions Architect."</p>
+            </div>
+            
+            <button onclick="copyToClipboard(`{{ pitch | replace('\n', '\\n') | replace('\"', '\\\"') }}`, this)" class="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold shadow-md shadow-orange-500/20 transition flex items-center gap-1.5 self-start sm:self-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                <span>Copy Pitch</span>
+            </button>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed font-sans space-y-3 shadow-xs">
+            {% for para in pitch.split('\n\n') %}
+            <p>{{ para }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Strategic Positioning Cheat Sheet -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <!-- Left: What to Own -->
+        <div class="bg-white border border-emerald-200 rounded-2xl p-6 space-y-3 shadow-xs">
+            <div class="flex items-center gap-2 text-emerald-700 text-xs font-bold uppercase tracking-wider">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <span>What to Own Proudly (Your Core Strength)</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Software Engineering Depth Meets Cloud Scale</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                {{ strategy.what_to_own }}
+            </p>
+            <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800">
+                <strong>Core Headline:</strong> {{ strategy.headline }}
+            </div>
+        </div>
+
+        <!-- Right: What to Avoid & Clarify -->
+        <div class="bg-white border border-rose-200 rounded-2xl p-6 space-y-3 shadow-xs">
+            <div class="flex items-center gap-2 text-rose-700 text-xs font-bold uppercase tracking-wider">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <span>What to Avoid (Theoretical Assumptions)</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Honest Grounding & Production Realities</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                {{ strategy.what_to_avoid }}
+            </p>
+            <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800">
+                <strong>Architect Positioning Tip:</strong> {{ strategy.experience_typo_tip }}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 20 Interview Questions Section -->
+    <div class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900">20 Deep AWS Solutions Architect Scenario Questions</h2>
+                <p class="text-xs text-slate-500 mt-1">Realistic architectural dilemmas across compute, databases, serverless, networking, and security</p>
+            </div>
+
+            <!-- Category Filter Dropdown / Pills -->
+            <div class="flex flex-wrap gap-1.5 max-w-xl">
+                {% for cat in categories %}
+                <a href="{{ url_for('interview_studio', category=cat) }}" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition text-decoration-none {% if selected_category == cat %}bg-orange-600 text-white shadow-xs font-bold{% else %}bg-slate-100 text-slate-600 hover:bg-slate-200{% endif %}">
+                    {{ cat }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            {% for q in questions %}
+            <details class="group bg-white border border-slate-200 rounded-2xl p-5 open:border-orange-400 transition shadow-xs">
+                <summary class="flex items-start justify-between gap-4 cursor-pointer list-none">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-orange-50 text-orange-800 border border-orange-200">Q{{ q.id }}</span>
+                            <span class="text-xs font-semibold text-slate-500">{{ q.category }}</span>
+                        </div>
+                        <h3 class="text-sm sm:text-base font-bold text-slate-900 group-hover:text-orange-600 transition mt-1">{{ q.question }}</h3>
+                    </div>
+                    <span class="p-1.5 rounded-lg bg-slate-100 text-slate-500 group-hover:text-slate-800 transition group-open:rotate-180 transform">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </summary>
+
+                <div class="mt-4 pt-4 border-t border-slate-200 space-y-4">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
+                        <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider block">Recommended Architectural Model Answer:</span>
+                        <p>{{ q.model_answer }}</p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2 pt-1">
+                        <span class="text-[11px] text-slate-500 font-semibold">Key Architectural Principles:</span>
+                        {% for point in q.key_points %}
+                        <span class="px-2.5 py-0.5 rounded text-xs bg-slate-100 border border-slate-200 text-orange-800 font-medium">{{ point }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </details>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,430 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Java Developer to AWS Solutions Architect 35-Day Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+    <!-- 1. Hero Banner: Java Developer to AWS Solutions Architect Transformation -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-50/70 via-orange-50/30 to-white border border-amber-200/80 p-6 sm:p-8 lg:p-10 shadow-sm">
+        <div class="absolute -right-16 -top-16 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-16 -bottom-16 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left Column: Transformation Story & Navigation CTA Links -->
+            <div class="lg:col-span-7 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 border border-orange-200 text-orange-800 text-xs font-semibold uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-orange-600 animate-pulse"></span>
+                    Java Enterprise to AWS Solutions Architect • 35 Days
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                    Simple Java Developer <br class="hidden sm:inline">
+                    <span class="bg-gradient-to-r from-orange-600 via-amber-600 to-indigo-600 bg-clip-text text-transparent">to AWS Solutions Architect</span>
+                </h1>
+
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Transform from a standard Java / Spring Boot developer into an elite, certified <strong class="text-slate-900">AWS Solutions Architect</strong> in 35 days. Leverage the best pedagogical algorithms: bridge your JVM, memory, connection pooling, and multi-threading knowledge directly to high-availability AWS primitives—including <strong class="text-slate-800">multi-AZ compute (EC2, ALB, ASG)</strong>, <strong class="text-slate-800">Amazon Aurora & DynamoDB single-table design</strong>, <strong class="text-slate-800">ECS Fargate & Lambda SnapStart CRaC</strong>, and <strong class="text-slate-800">event-driven decoupled microservices (EventBridge, SQS FIFO, Step Functions Saga)</strong> with official AWS YouTube training videos.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-3 pt-2">
+                    <a href="{{ url_for('courses_hub') }}" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-extrabold text-sm shadow-md shadow-orange-500/20 hover:scale-[1.02] transition text-decoration-none">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        <span>Explore 35-Day Curriculum</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="#aws-masterclass" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-semibold text-sm shadow-xs transition text-decoration-none">
+                        <i class="bi bi-play-circle-fill text-orange-600"></i>
+                        <span>AWS Masterclass Video</span>
+                    </a>
+                    <a href="{{ url_for('interview_studio') }}" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-indigo-700 font-semibold text-sm shadow-xs transition text-decoration-none">
+                        <i class="bi bi-chat-quote-fill text-indigo-600"></i>
+                        <span>Interview Scenarios & Pitch</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Small Corner: Dedicated 10-Min AWS Executive Briefing Card -->
+            <div class="lg:col-span-5">
+                <div class="bg-white border border-orange-200 hover:border-orange-300 rounded-2xl p-4 sm:p-5 shadow-md space-y-3 relative group transition">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-orange-100 text-orange-800 border border-orange-200 uppercase tracking-wide">
+                                ⏱ {{ aws_briefing.duration }}
+                            </span>
+                        </div>
+                        <span class="text-[10px] text-orange-700 font-mono font-semibold">Official AWS Events</span>
+                    </div>
+
+                    <div>
+                        <h2 class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">
+                            {{ aws_briefing.title }}
+                        </h2>
+                        <p class="text-[11px] text-slate-600 leading-snug mt-1">
+                            {{ aws_briefing.summary }}
+                        </p>
+                    </div>
+
+                    <!-- 10-Min Video Frame -->
+                    <div class="aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-200 shadow-md relative">
+                        <iframe class="w-full h-full" src="{{ aws_briefing.embed_url }}" title="{{ aws_briefing.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- 3 Fast Takeaways -->
+                    <div class="space-y-1 text-[11px] text-slate-700 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                        <div class="flex items-start gap-1.5">
+                            <span class="text-orange-600 font-bold">1.</span>
+                            <span><strong>Multi-AZ Resilient Tiering:</strong> Scale Spring Boot across EC2/ALB with Aurora Multi-AZ & Read Replicas.</span>
+                        </div>
+                        <div class="flex items-start gap-1.5">
+                            <span class="text-emerald-600 font-bold">2.</span>
+                            <span><strong>In-Memory & NoSQL:</strong> Offload database bottlenecks with ElastiCache Redis & DynamoDB Single-Table Design.</span>
+                        </div>
+                        <div class="flex items-start gap-1.5">
+                            <span class="text-indigo-600 font-bold">3.</span>
+                            <span><strong>Decoupled Microservices:</strong> Eliminate cascading HTTP failures with Amazon SQS FIFO & EventBridge.</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-1 text-[11px]">
+                        <span class="text-slate-500">Duration: <strong class="text-orange-700">{{ aws_briefing.duration }}</strong></span>
+                        <a href="{{ aws_briefing.watch_url }}" target="_blank" rel="noopener noreferrer" class="text-orange-600 hover:text-orange-700 font-semibold flex items-center gap-1 hover:underline">
+                            <span>Open on YouTube ↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 2. Quick Metrics Overview Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Card 1: 35-Day Progress -->
+        <div class="bg-white border border-slate-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs hover-card">
+            <div class="flex items-center justify-between text-slate-500">
+                <span class="text-xs uppercase font-semibold tracking-wider">35-Day Curriculum</span>
+                <span class="p-2 rounded-lg bg-orange-50 text-orange-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </span>
+            </div>
+            <div class="mt-4">
+                <div class="text-2xl font-bold text-slate-900">{{ metrics.days_percent }}% Complete</div>
+                <div class="text-xs text-slate-500 mt-1">{{ metrics.completed_days }} of {{ metrics.total_days }} Days Completed</div>
+                <div class="w-full bg-slate-100 rounded-full h-2 mt-3 overflow-hidden border border-slate-200">
+                    <div class="bg-gradient-to-r from-orange-500 to-amber-600 h-full rounded-full transition-all duration-500" style="width: {{ metrics.days_percent }}%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: Current Focus Day -->
+        <div class="bg-white border border-slate-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs hover-card">
+            <div class="flex items-center justify-between text-slate-500">
+                <span class="text-xs uppercase font-semibold tracking-wider">Current Focus</span>
+                <span class="p-2 rounded-lg bg-indigo-50 text-indigo-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </span>
+            </div>
+            <div class="mt-4">
+                <div class="text-2xl font-bold text-indigo-600">Day {{ metrics.current_day }}</div>
+                <div class="text-xs text-slate-600 truncate mt-1">{{ current_day_data.title }}</div>
+                <a href="{{ url_for('courses_hub', day=metrics.current_day) }}" class="inline-flex items-center text-xs text-orange-600 hover:text-orange-700 font-semibold mt-3 text-decoration-none">
+                    Open Day {{ metrics.current_day }} Plan →
+                </a>
+            </div>
+        </div>
+
+        <!-- Card 3: 10 Core AWS Topics -->
+        <div class="bg-white border border-slate-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs hover-card">
+            <div class="flex items-center justify-between text-slate-500">
+                <span class="text-xs uppercase font-semibold tracking-wider">AWS Architecture</span>
+                <span class="p-2 rounded-lg bg-emerald-50 text-emerald-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </span>
+            </div>
+            <div class="mt-4">
+                <div class="text-2xl font-bold text-emerald-600">10 Core Domains</div>
+                <div class="text-xs text-slate-500 mt-1">Official AWS Docs & YouTube Masterclasses</div>
+                <a href="{{ url_for('topics_list') }}" class="inline-flex items-center text-xs text-emerald-600 hover:text-emerald-700 font-semibold mt-3 text-decoration-none">
+                    Explore 10 AWS Topics →
+                </a>
+            </div>
+        </div>
+
+        <!-- Card 4: Portfolio Projects -->
+        <div class="bg-white border border-slate-200 p-5 rounded-2xl flex flex-col justify-between shadow-xs hover-card">
+            <div class="flex items-center justify-between text-slate-500">
+                <span class="text-xs uppercase font-semibold tracking-wider">Enterprise Portfolio</span>
+                <span class="p-2 rounded-lg bg-purple-50 text-purple-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </span>
+            </div>
+            <div class="mt-4">
+                <div class="text-2xl font-bold text-purple-600">{{ projects | length }} Capstone Projects</div>
+                <div class="text-xs text-slate-500 mt-1">ASCII Architecture Diagrams & Resume Bullets</div>
+                <a href="{{ url_for('projects_view') }}" class="inline-flex items-center text-xs text-purple-600 hover:text-purple-700 font-semibold mt-3 text-decoration-none">
+                    View AWS Projects →
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 3. FEATURED AWS MASTERCLASS: Official AWS Solutions Architect Training -->
+    <div id="aws-masterclass" class="bg-gradient-to-br from-slate-50/70 via-white to-orange-50/30 border border-orange-200/90 rounded-3xl p-6 sm:p-10 space-y-8 shadow-sm scroll-mt-20">
+        
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+            <div class="space-y-1 max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 border border-orange-200 text-orange-800 text-xs font-bold uppercase tracking-wider">
+                    ★ Official AWS Masterclass • Solutions Architecture & Resilient Cloud
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+                    {{ aws_course.title }}
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    {{ aws_course.description }}
+                </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 self-start lg:self-center">
+                <a href="{{ aws_course.watch_url }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-rose-600/20 text-decoration-none">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    <span>Watch on YouTube</span>
+                </a>
+                <a href="{{ url_for('courses_hub') }}" class="px-4 py-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-800 text-xs font-semibold border border-orange-200 transition text-decoration-none">
+                    Start Day 1 Course →
+                </a>
+            </div>
+        </div>
+
+        <!-- Video Player Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Main Video Embed (2 columns) -->
+            <div class="lg:col-span-2 space-y-3">
+                <div class="aspect-video w-full rounded-2xl overflow-hidden bg-black border border-slate-200 shadow-md">
+                    <iframe class="w-full h-full" src="{{ aws_course.embed_url }}" title="{{ aws_course.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="flex items-center justify-between text-xs text-slate-500 px-1">
+                    <span>Instructor: <strong class="text-slate-800">{{ aws_course.instructor }}</strong></span>
+                    <span>Video ID: <code class="text-orange-700 font-mono">{{ aws_course.primary_video_id }}</code></span>
+                </div>
+            </div>
+
+            <!-- Architectural Modules (1 column) -->
+            <div class="space-y-3 flex flex-col justify-between">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-orange-600"></span>
+                            <span>Core Transformation Modules</span>
+                        </h3>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-800 border border-orange-200 font-mono">
+                            {{ aws_course.duration }}
+                        </span>
+                    </div>
+
+                    <div class="space-y-2">
+                        {% for mod in aws_course.modules %}
+                        <div class="p-3 rounded-xl bg-white border border-slate-200 hover:border-orange-300 transition shadow-2xs">
+                            <div class="flex items-center gap-2">
+                                <span class="w-5 h-5 rounded-md bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xs">{{ mod.num }}</span>
+                                <h4 class="text-xs font-bold text-slate-900 m-0">{{ mod.title }}</h4>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-1 leading-snug m-0 pl-7">{{ mod.desc }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-orange-50/70 border border-orange-200 text-xs text-orange-950 space-y-1">
+                    <strong class="block font-bold">Java to Cloud Reality:</strong>
+                    <p class="text-[11px] text-slate-600 leading-snug m-0">
+                        Understanding the JVM, heap allocations, and thread pools makes you 10x more effective than cloud architects who view code as a black box.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 4. What We Are Going to Explore: The 10 Architectural Pillars -->
+    <div class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+            <div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-xs font-semibold uppercase tracking-wider">
+                    Comprehensive Curriculum Scope
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                    What We Are Going to Explore in This Project
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl">
+                    A comprehensive architectural walkthrough bridging Java enterprise applications to enterprise-grade AWS cloud platforms across compute, networking, storage, databases, serverless, and decoupled events.
+                </p>
+            </div>
+
+            <a href="{{ url_for('courses_hub') }}" class="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs transition flex items-center gap-1.5 shadow-md shadow-orange-500/20 self-start sm:self-center text-decoration-none">
+                <span>Open 35-Day Courses</span> →
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {% for pillar in pillars %}
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between hover-card shadow-xs transition space-y-4">
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 border border-slate-200 text-orange-700 font-mono">
+                            {{ pillar.id | upper }}
+                        </span>
+                        <span class="text-xs font-mono text-slate-400">Domain #{{ loop.index }}</span>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-slate-900 hover:text-orange-600 transition flex items-center gap-2">
+                        <i class="bi {{ pillar.icon }} text-orange-600"></i>
+                        <span>{{ pillar.title }}</span>
+                    </h3>
+
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {{ pillar.description }}
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex flex-wrap gap-1.5">
+                        {% for s in pillar.services %}
+                        <span class="px-2 py-0.5 rounded text-[10px] bg-slate-100 border border-slate-200 text-slate-700 font-mono font-medium">{{ s }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <a href="{{ url_for('topic_detail', topic_id=loop.index if loop.index <= 10 else 1) }}" class="text-xs text-orange-600 hover:text-orange-700 font-semibold flex items-center gap-1 text-decoration-none">
+                        <span>Study Module</span> →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 5. 5-Phase Roadmap Progression Overview -->
+    <div class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between">
+            <div>
+                <h3 class="text-xl font-bold text-slate-900">35-Day Curriculum Progression</h3>
+                <p class="text-xs text-slate-500">How the 35 days systematically transform a Java developer into an AWS Solutions Architect</p>
+            </div>
+            <a href="{{ url_for('roadmap') }}" class="text-xs font-semibold text-orange-600 hover:text-orange-700 text-decoration-none">
+                View Full Roadmap →
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+            {% set phases_info = [
+                {"num": 1, "name": "Compute & IAM", "days": "Days 1–7", "desc": "EC2, ALB/NLB, ASG, Elastic Beanstalk & IAM Zero-Trust", "border": "border-emerald-300"},
+                {"num": 2, "name": "Storage & VPC", "days": "Days 8–14", "desc": "S3 Lifecycle, EBS/EFS, Multi-Tier VPC, Transit Gateway, Route 53", "border": "border-sky-300"},
+                {"num": 3, "name": "Databases & Containers", "days": "Days 15–21", "desc": "Amazon Aurora, RDS Proxy, DynamoDB NoSQL, ECS Fargate, Lambda SnapStart", "border": "border-indigo-300"},
+                {"num": 4, "name": "Events & Caching", "days": "Days 22–28", "desc": "SQS FIFO, SNS, EventBridge, Step Functions Saga, ElastiCache Redis", "border": "border-purple-300"},
+                {"num": 5, "name": "Security & Capstones", "days": "Days 29–35", "desc": "KMS, Secrets Manager, WAF, CloudWatch, AWS CDK Java, SAA-C03 Mastery", "border": "border-amber-300"}
+            ] %}
+            
+            {% for p in phases_info %}
+            <a href="{{ url_for('courses_hub', day=(p.num - 1) * 7 + 1) }}" class="bg-white border {{ p.border }} p-4 rounded-xl hover:bg-slate-50 transition flex flex-col justify-between shadow-xs text-decoration-none">
+                <div>
+                    <div class="flex items-center justify-between text-xs font-semibold text-slate-500">
+                        <span class="font-bold text-slate-800">Phase {{ p.num }}</span>
+                        <span class="text-[10px] text-slate-400 font-mono">{{ p.days }}</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-slate-800 mt-1 leading-snug">{{ p.name }}</h4>
+                    <p class="text-xs text-slate-500 mt-1 leading-snug">{{ p.desc }}</p>
+                </div>
+                <div class="mt-3 text-[11px] font-semibold text-orange-600 flex items-center gap-1">
+                    <span>Jump to Phase {{ p.num }}</span> →
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 6. Portfolio Projects Section -->
+    <div class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between">
+            <div>
+                <h3 class="text-xl font-bold text-slate-900">{{ projects | length }} Enterprise Portfolio Projects</h3>
+                <p class="text-xs text-slate-500">Production-grade architecture blueprints with ASCII diagrams and interview defense notes</p>
+            </div>
+            <a href="{{ url_for('projects_view') }}" class="text-xs font-semibold text-amber-600 hover:text-amber-700 text-decoration-none">
+                View All Projects & Diagrams →
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for project in projects %}
+            <div class="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover-card shadow-xs">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 font-mono">
+                            {{ project.badge }}
+                        </span>
+                    </div>
+                    <h4 class="text-sm font-bold text-slate-900 leading-snug">{{ project.title }}</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed line-clamp-3">{{ project.summary }}</p>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        {% for tech in (project.technologies_used or project.tech_stack)[:3] %}
+                        <span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 border border-slate-200 text-slate-600 font-mono">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="pt-4 mt-3 border-t border-slate-200">
+                    <a href="{{ url_for('projects_view') }}#{{ project.id }}" class="text-xs font-semibold text-amber-600 hover:text-amber-700 flex items-center gap-1 text-decoration-none">
+                        <span>Read Architecture</span> →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Floating Bottom-Right Corner Quick-Access 10-Min Briefing Launcher -->
+    <div id="corner-aws-launcher" class="fixed bottom-6 right-6 z-40">
+        <button onclick="toggleCornerAwsModal()" class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 hover:from-orange-700 hover:to-amber-700 text-white font-extrabold text-xs shadow-xl shadow-orange-500/30 border border-orange-400/30 transition transform hover:scale-105 group">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <svg class="w-4 h-4 text-orange-200 group-hover:text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+            <span>{{ aws_briefing.duration }} Executive Briefing</span>
+        </button>
+    </div>
+
+    <!-- Floating Corner Modal Player -->
+    <div id="corner-aws-modal" class="fixed bottom-20 right-6 z-50 hidden max-w-sm sm:max-w-md w-full bg-white border border-orange-200 rounded-2xl p-4 shadow-2xl space-y-3 animate-fadeIn">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-orange-100 text-orange-700 border border-orange-200 uppercase tracking-wide">
+                    Official AWS • {{ aws_briefing.duration }}
+                </span>
+                <span class="text-xs font-bold text-slate-800">Scaling on AWS</span>
+            </div>
+            <button onclick="toggleCornerAwsModal()" class="text-slate-400 hover:text-slate-700 text-base font-bold p-1 leading-none">
+                ✕
+            </button>
+        </div>
+        <div class="aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-200">
+            <iframe class="w-full h-full" src="{{ aws_briefing.embed_url }}" title="{{ aws_briefing.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed">
+            {{ aws_briefing.summary }}
+        </p>
+    </div>
+
+    <script>
+    function toggleCornerAwsModal() {
+        const modal = document.getElementById('corner-aws-modal');
+        if (modal) {
+            modal.classList.toggle('hidden');
+        }
+    }
+    </script>
+</div>
+{% endblock %}

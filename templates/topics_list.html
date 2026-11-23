@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}10 Core AWS Architecture Domains - Solutions Architect Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-extrabold text-slate-900">10 Core AWS Architecture Domains</h1>
+            <p class="text-sm text-slate-600 mt-1">
+                Deep architectural focus areas covering AWS certifications (SAA-C03 & SAP-C02), official AWS documentation, hands-on labs, and Java developer architectural bridge notes.
+            </p>
+        </div>
+        
+        <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-500">Mastery Progress:</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-50 text-orange-800 border border-orange-200 shadow-xs">
+                {{ metrics.completed_topics }} / {{ metrics.total_topics }} Domains Mastered
+            </span>
+        </div>
+    </div>
+
+    <!-- Topics Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for topic in topics %}
+        {% set status = status_map[topic.id] or 'not_started' %}
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between hover-card shadow-xs transition space-y-5">
+            
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-8 h-8 rounded-xl bg-orange-50 text-orange-700 flex items-center justify-center font-bold text-sm border border-orange-200">
+                            {{ topic.id }}
+                        </span>
+                        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ topic.category }}</span>
+                    </div>
+
+                    <!-- Status Selector -->
+                    <select onchange="updateTopicStatus({{ topic.id }}, this.value)" class="bg-white border border-slate-300 rounded-lg text-xs px-2.5 py-1 text-slate-700 focus:outline-none focus:border-orange-500">
+                        <option value="not_started" {% if status == 'not_started' %}selected{% endif %}>⚪ Not Started</option>
+                        <option value="in_progress" {% if status == 'in_progress' %}selected{% endif %}>🟡 In Progress</option>
+                        <option value="completed" {% if status == 'completed' %}selected{% endif %}>🟢 Completed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900 hover:text-orange-600 transition">
+                        <a href="{{ url_for('topic_detail', topic_id=topic.id) }}" class="text-decoration-none text-slate-900 hover:text-orange-600">{{ topic.title }}</a>
+                    </h2>
+                    <p class="text-xs text-slate-600 mt-1 leading-relaxed">{{ topic.subtitle }}</p>
+                </div>
+
+                <!-- Exam Mapping Badges -->
+                <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span class="text-[11px] text-slate-500 font-medium">Mapped Exams:</span>
+                    {% for exam in topic.exams %}
+                    <span class="px-2 py-0.5 rounded text-[11px] bg-slate-100 border border-slate-200 text-orange-700 font-mono font-semibold">{{ exam }}</span>
+                    {% endfor %}
+                </div>
+
+                <!-- Key Concepts Bullets -->
+                <div class="space-y-1.5 pt-2 border-t border-slate-200">
+                    {% for concept in topic.core_concepts[:3] %}
+                    <div class="flex items-start gap-2 text-xs text-slate-600">
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 flex-shrink-0"></span>
+                        <span class="line-clamp-1">{{ concept }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Card Bottom Bar -->
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between text-xs">
+                <span class="text-slate-500">{{ topic.msdn_links | length }} AWS Docs • Lab & Official Video</span>
+                <a href="{{ url_for('topic_detail', topic_id=topic.id) }}" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-orange-700 font-semibold border border-slate-300 transition flex items-center gap-1 text-decoration-none shadow-xs">
+                    <span>Explore Domain</span> →
+                </a>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}35-Day AWS Solutions Architect Roadmap{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Header & Phase Selection -->
+    <div class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900">35-Day Structured AWS Architecture Roadmap</h1>
+                <p class="text-sm text-slate-600 mt-1">
+                    Systematic daily progression transforming a simple Java enterprise developer into a high-concurrency AWS Solutions Architect.
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-500 font-mono">{{ metrics.completed_days }}/35 Completed</span>
+            </div>
+        </div>
+
+        <!-- Phase Navigation Filter Buttons -->
+        <div class="flex flex-wrap gap-2 pt-2">
+            <a href="{{ url_for('roadmap') }}" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition text-decoration-none {% if selected_phase == 0 %}bg-orange-600 text-white border-orange-500 shadow-xs font-bold{% else %}bg-white text-slate-600 border-slate-200 hover:text-orange-600 hover:bg-slate-50{% endif %}">
+                All 35 Days
+            </a>
+            {% for phase in phases_meta %}
+            <a href="{{ url_for('roadmap') }}?phase={{ phase.num }}" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition flex items-center gap-1.5 text-decoration-none {% if selected_phase == phase.num %}bg-orange-600 text-white border-orange-500 shadow-xs font-bold{% else %}bg-white text-slate-600 border-slate-200 hover:text-orange-600 hover:bg-slate-50{% endif %}">
+                <span>Phase {{ phase.num }}: {{ phase.title }}</span>
+                <span class="text-[10px] opacity-70">({{ phase.days }})</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Timeline Daily Cards -->
+    <div class="space-y-4">
+        {% for day in days %}
+        {% set status = progress_data[day.day] %}
+        <div id="day-card-{{ day.day }}" class="bg-white border {% if status.completed %}border-emerald-300 bg-emerald-50/20{% else %}border-slate-200{% endif %} rounded-2xl p-5 sm:p-6 transition hover:border-orange-300 shadow-xs">
+            
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                
+                <!-- Day Info & Title -->
+                <div class="flex items-start gap-4">
+                    <!-- Checkbox Button -->
+                    <button onclick="toggleDayProgress({{ day.day }}, event)" class="mt-1 flex-shrink-0 w-7 h-7 rounded-lg border flex items-center justify-center transition custom-checkbox {% if status.completed %}bg-emerald-500 border-emerald-500 text-white{% else %}border-slate-300 hover:border-emerald-500 bg-white text-transparent{% endif %}">
+                        <span id="day-check-{{ day.day }}" class="{% if status.completed %}opacity-100{% else %}opacity-0{% endif %} font-bold text-sm">✓</span>
+                    </button>
+
+                    <div class="space-y-1">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-bold text-orange-700 uppercase tracking-wide">Day {{ day.day }}</span>
+                            <span class="text-slate-300">•</span>
+                            <span class="px-2 py-0.5 rounded text-[11px] bg-slate-100 text-slate-700 font-medium">Phase {{ day.phase }}</span>
+                            
+                            {% set topic = topics_map[day.topic_id] %}
+                            {% if topic %}
+                            <a href="{{ url_for('topic_detail', topic_id=topic.id) }}" class="px-2 py-0.5 rounded text-[11px] bg-orange-50 border border-orange-200 text-orange-800 font-medium hover:bg-orange-100 transition text-decoration-none">
+                                Topic {{ topic.id }}: {{ topic.title }}
+                            </a>
+                            {% endif %}
+
+                            {% if day.milestone %}
+                            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-300 pulse-badge">
+                                🌟 Architecture Milestone
+                            </span>
+                            {% endif %}
+                        </div>
+
+                        <h3 class="text-lg font-bold text-slate-900 hover:text-orange-600 transition">
+                            <a href="{{ url_for('day_detail', day_num=day.day) }}" class="text-decoration-none text-slate-900 hover:text-orange-600">{{ day.title }}</a>
+                        </h3>
+                        <p class="text-xs text-slate-500">{{ day.objective }}</p>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center gap-3 self-end lg:self-center">
+                    <a href="{{ url_for('day_detail', day_num=day.day) }}" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition border border-slate-300 flex items-center gap-1.5 text-decoration-none shadow-xs">
+                        <span>Study Guide</span> →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Java to Cloud Bridge Callout -->
+            {% if day.java_bridge %}
+            <div class="mt-3 p-3 rounded-xl bg-orange-50/70 border border-orange-200/80 text-xs text-slate-700 flex items-start gap-2">
+                <span class="font-bold text-orange-700 flex-shrink-0">☕ Java Bridge:</span>
+                <span class="leading-relaxed">{{ day.java_bridge }}</span>
+            </div>
+            {% endif %}
+
+            <!-- Task Breakdown Columns -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 pt-3 border-t border-slate-200 text-xs">
+                
+                <!-- Morning -->
+                <div class="bg-slate-50 p-3 rounded-xl space-y-1 border border-slate-200">
+                    <span class="text-[11px] font-bold text-orange-700 uppercase tracking-wider flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        Morning (AWS Docs & Video)
+                    </span>
+                    <p class="text-slate-700 leading-relaxed">{{ day.morning_task }}</p>
+                </div>
+
+                <!-- Afternoon -->
+                <div class="bg-slate-50 p-3 rounded-xl space-y-1 border border-slate-200">
+                    <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        Afternoon (Hands-on AWS Lab)
+                    </span>
+                    <p class="text-slate-700 leading-relaxed">{{ day.afternoon_task }}</p>
+                </div>
+
+                <!-- Evening -->
+                <div class="bg-slate-50 p-3 rounded-xl space-y-1 border border-slate-200">
+                    <span class="text-[11px] font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        Evening (Architecture Defense)
+                    </span>
+                    <p class="text-slate-700 leading-relaxed">{{ day.evening_task }}</p>
+                </div>
+            </div>
+
+            <!-- Inline Notes Box -->
+            <div class="mt-4 pt-3 border-t border-slate-200 flex items-center gap-2">
+                <input type="text" id="day-notes-{{ day.day }}" value="{{ status.notes }}" placeholder="Add a quick note or key takeaway for Day {{ day.day }}..." class="flex-grow bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:border-orange-500">
+                <button onclick="saveDayNotes({{ day.day }})" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-300 transition shadow-2xs">
+                    Save
+                </button>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

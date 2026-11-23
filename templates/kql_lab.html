@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}AWS Architecture & CLI Workbench - Solutions Architect Portal{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-extrabold text-slate-900">AWS Architecture & CLI Simulation Workbench</h1>
+            <p class="text-sm text-slate-600 mt-1">
+                Interactive cloud engineering workbench for AWS Solutions Architects: audit compute clusters, S3 security policies, DynamoDB single-table keys, and Step Functions Saga executions.
+            </p>
+        </div>
+        
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-orange-50 text-orange-800 border border-orange-200 self-start sm:self-center font-mono shadow-xs">
+            AWS CLI v2 & Cloud Engine
+        </span>
+    </div>
+
+    <!-- Main Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Left Column: Query Selector List -->
+        <div class="space-y-3">
+            <h2 class="text-xs font-bold text-slate-500 uppercase tracking-wider">AWS Architectural Scenarios</h2>
+            <div class="space-y-2">
+                {% for q in workbench_queries %}
+                <a href="{{ url_for('kql_workbench', id=q.id) }}" class="block p-4 rounded-xl border transition text-decoration-none {% if q.id == current_workbench.id %}bg-orange-50 border-orange-300 shadow-xs{% else %}bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50{% endif %}">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-semibold">{{ q.id | upper }}</span>
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded border bg-amber-50 text-amber-800 border-amber-200">{{ q.category }}</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-900 mt-2 leading-snug">{{ q.title }}</h3>
+                    <p class="text-xs text-slate-500 mt-1 line-clamp-2">{{ q.description }}</p>
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- AWS Architectural Cheat Sheet Box -->
+            <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 text-xs shadow-xs">
+                <h3 class="font-bold text-slate-800 uppercase tracking-wider text-[11px]">AWS CLI & Architecture Cheat Sheet</h3>
+                <div class="space-y-1.5 text-slate-700 font-mono text-[11px]">
+                    <div><span class="text-orange-700 font-bold">aws autoscaling:</span> inspects target groups & instance health</div>
+                    <div><span class="text-orange-700 font-bold">aws s3api:</span> manages bucket encryption & BlockPublicAccess</div>
+                    <div><span class="text-orange-700 font-bold">aws dynamodb:</span> executes single-digit ms key queries</div>
+                    <div><span class="text-orange-700 font-bold">aws stepfunctions:</span> starts Saga distributed workflows</div>
+                    <div><span class="text-orange-700 font-bold">aws rds:</span> provisions Aurora Multi-AZ & RDS Proxy pools</div>
+                    <div><span class="text-orange-700 font-bold">aws elbv2:</span> manages ALB listener rules & weighted routes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right 2 Columns: Query Inspector & Simulator -->
+        <div class="lg:col-span-2 space-y-6">
+
+            <!-- Query Detail Box -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-orange-100 border border-orange-200 text-orange-800 font-bold">{{ current_workbench.id | upper }}</span>
+                            <span class="text-xs text-slate-500 font-medium">Domain: <strong class="text-slate-800">{{ current_workbench.category }}</strong></span>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-900 mt-2">{{ current_workbench.title }}</h2>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyToClipboard(`{{ current_workbench.command | replace('\n', '\\n') | replace('\"', '\\\"') }}`, this)" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-300 transition flex items-center gap-1 shadow-xs">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            <span>Copy Command</span>
+                        </button>
+                        <button onclick="runAwsSimulation('{{ current_workbench.id }}')" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white text-xs font-bold transition hover:scale-105 shadow-md shadow-orange-500/20 flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Execute Simulation</span>
+                        </button>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-600">{{ current_workbench.description }}</p>
+
+                <!-- Command Container -->
+                <div class="relative rounded-xl overflow-hidden bg-slate-900 border border-slate-700 p-4">
+                    <pre><code class="text-xs sm:text-sm text-amber-300 font-mono leading-relaxed whitespace-pre-wrap">{{ current_workbench.command }}</code></pre>
+                </div>
+
+                <!-- Architectural Explanation -->
+                <div class="p-4 rounded-xl bg-orange-50/70 border border-orange-200 text-xs space-y-1">
+                    <span class="font-bold text-orange-950 uppercase tracking-wider text-[11px] block">Architectural Evaluation Mechanics:</span>
+                    <p class="text-slate-700 leading-relaxed m-0">{{ current_workbench.description }} In production, this validates zero-trust network boundaries, multi-AZ target health, or sub-10ms single-table query latencies.</p>
+                </div>
+            </div>
+
+            <!-- Simulated Execution Results Container (AJAX Target) -->
+            <div id="aws-results-container" class="hidden bg-white border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm animate-fadeIn">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                    <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>AWS Cloud Simulation Output</span>
+                    </h3>
+                    <div id="aws-status-text" class="text-xs text-emerald-700 font-mono font-bold">200 OK • Execution Succeeded</div>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50">
+                    <table id="aws-results-table" class="min-w-full divide-y divide-slate-200 text-left text-xs">
+                        <!-- Populated dynamically via JS -->
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+async function runAwsSimulation(queryId) {
+    const container = document.getElementById('aws-results-container');
+    const table = document.getElementById('aws-results-table');
+    const statusText = document.getElementById('aws-status-text');
+
+    if (!container || !table) return;
+
+    container.classList.remove('hidden');
+    table.innerHTML = '<tr><td class="p-4 text-center text-xs text-slate-500 font-mono">Querying simulated AWS Cloud Engine...</td></tr>';
+
+    try {
+        const response = await fetch('/api/workbench/simulate', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({query_id: queryId})
+        });
+
+        const data = await response.json();
+        if (!data.success) {
+            table.innerHTML = `<tr><td class="p-4 text-center text-xs text-rose-600 font-mono">Error: ${data.error || 'Failed to simulate query'}</td></tr>`;
+            return;
+        }
+
+        statusText.innerText = `${data.count} record(s) returned (${data.category})`;
+
+        // Build Table Header
+        let headerHtml = '<thead class="bg-slate-100 text-slate-700 uppercase tracking-wider text-[10px] font-bold"><tr>';
+        data.columns.forEach(col => {
+            headerHtml += `<th class="px-4 py-2.5 border-b border-slate-200 font-mono">${col}</th>`;
+        });
+        headerHtml += '</tr></thead>';
+
+        // Build Table Rows
+        let bodyHtml = '<tbody class="divide-y divide-slate-200 bg-white font-mono text-slate-800">';
+        data.rows.forEach(row => {
+            bodyHtml += '<tr class="hover:bg-orange-50/50 transition">';
+            data.columns.forEach(col => {
+                const val = row[col] !== undefined ? row[col] : '';
+                bodyHtml += `<td class="px-4 py-2 border-b border-slate-200 text-xs whitespace-nowrap">${val}</td>`;
+            });
+            bodyHtml += '</tr>';
+        });
+        bodyHtml += '</tbody>';
+
+        table.innerHTML = headerHtml + bodyHtml;
+
+        if (typeof showToast === 'function') {
+            showToast('AWS simulation executed successfully!', 'success');
+        }
+    } catch (err) {
+        table.innerHTML = `<tr><td class="p-4 text-center text-xs text-rose-600 font-mono">Execution failed: ${err.message}</td></tr>`;
+    }
+}
+
+// Auto-run simulation on page load
+document.addEventListener('DOMContentLoaded', () => {
+    runAwsSimulation('{{ current_workbench.id }}');
+});
+</script>
+{% endblock %}
