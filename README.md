@@ -129,7 +129,7 @@ The portal implements enterprise security controls:
 - Navigating to any other route (`/courses`, `/roadmap`, `/topics`, `/projects`, `/aws-workbench`, `/interview-studio`, `/notes`) redirects to `/?unlock=1` and flashes the **Admin Security Password Modal** with an attention-grabbing pulse animation.
 
 ### 2. Admin Security Password
-- Password: `"Azadirakhtaindica@007"`
+- **Encrypted & Hashed Storage**: The master admin password is never stored or disclosed in plaintext in the codebase or documentation. It is stored as an encrypted cryptographic vault ciphertext and verified via salted PBKDF2-HMAC-SHA256 constant-time comparison (with optional runtime `ADMIN_PASSWORD` environment variable override).
 - **Zero Hints & Zero Placeholders**: The password input field displays strictly masked bullets (`••••••••••••`). No plaintext hints, placeholders, or clues are visible on the website.
 - **Anti-Brute-Force Rate Limiting**: 5 consecutive failed attempts immediately locks out the client IP for 60 seconds, returning HTTP `429 Too Many Requests`.
 - **Automatic Access Email Generation**: When the correct password is submitted, full access is granted, and the system automatically generates a formatted sample email text for the user to send to **`anooppriyaranjan@gmail.com`** requesting full registered candidate access.

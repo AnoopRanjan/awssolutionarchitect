@@ -18,6 +18,7 @@ from data.access_control import (
     create_access_request,
     ADMIN_EMAIL
 )
+from data.google_auth import get_decrypted_admin_password
 
 
 def test_native_xlsx_parsing():
@@ -63,8 +64,9 @@ def test_topics_and_roadmap():
 def test_aws_workbench_simulation():
     """Verify the AWS Workbench simulation endpoint executes and returns realistic architectural audit data."""
     client = app.test_client()
+    admin_pw = get_decrypted_admin_password()
     # Unlock site with admin password
-    unlock = client.post('/api/verify-site-password', json={'password': 'Azadirakhtaindica@007'})
+    unlock = client.post('/api/verify-site-password', json={'password': admin_pw})
     assert unlock.status_code == 200
     for q in AWS_WORKBENCH_QUERIES:
         res = client.post('/api/workbench/simulate', json={'query_id': q['id']})
@@ -80,8 +82,9 @@ def test_aws_workbench_simulation():
 
 
 def test_routes_and_access():
-    """Verify that only home page is displayed, admin popup unlocks with Azadirakhtaindica@007, and email request contains approval link to anooppriyaranjan@gmail.com."""
+    """Verify that only home page is displayed, admin popup unlocks with encrypted credentials, and email request contains approval link to anooppriyaranjan@gmail.com."""
     client = app.test_client()
+    admin_pw = get_decrypted_admin_password()
 
     # 1. Home page is freely accessible and displays
     res_home = client.get('/')
@@ -116,9 +119,9 @@ def test_routes_and_access():
     reset_admin_rate_limit("127.0.0.1")
     reset_admin_rate_limit("unknown")
 
-    # 4. Correct admin password "Azadirakhtaindica@007" unlocks the entire web application
+    # 4. Correct admin password unlocks the entire web application
     # AND when password is correct, creates sample email text for the user to send to anooppriyaranjan@gmail.com requesting full access
-    unlock_res = client.post('/api/verify-site-password', json={'password': 'Azadirakhtaindica@007', 'target': '/courses', 'email': 'student@example.com', 'name': 'Java Developer'})
+    unlock_res = client.post('/api/verify-site-password', json={'password': admin_pw, 'target': '/courses', 'email': 'student@example.com', 'name': 'Java Developer'})
     assert unlock_res.status_code == 200
     unlock_data = unlock_res.get_json()
     assert unlock_data['success'] is True
@@ -167,11 +170,11 @@ def test_routes_and_access():
     assert inbox_res.status_code == 200
     inbox_html = inbox_res.data.decode('utf-8')
     assert "Enter Admin Password" in inbox_html or "••••••••••••" in inbox_html
-    assert "Azadirakhtaindica" not in inbox_html
+    assert admin_pw not in inbox_html
     print("PASS: Admin inbox is password protected with masked placeholder and no hints.")
 
     # Unlock admin inbox with password
-    inbox_unlock = client.post('/access/inbox', data={'password': 'Azadirakhtaindica@007'}, follow_redirects=True)
+    inbox_unlock = client.post('/access/inbox', data={'password': admin_pw}, follow_redirects=True)
     assert inbox_unlock.status_code == 200
     unlocked_inbox_html = inbox_unlock.data.decode('utf-8')
     assert "Received Access Emails & Passcodes" in unlocked_inbox_html

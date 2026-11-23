@@ -293,7 +293,7 @@ def check_portal_access():
         return None
 
     # Requirement: Allow ONLY Home page as display; rest of web application displays
-    # only when admin password ("Azadirakhtaindica@007") is verified in popup,
+    # only when encrypted admin password is verified in popup,
     # OR when access is approved via link by anooppriyaranjan@gmail.com.
     if not session.get("site_unlocked"):
         if request.path.startswith("/api/"):
@@ -939,7 +939,7 @@ def access_inbox():
             record_failed_admin_attempt(client_ip)
             error_msg = "Incorrect admin password. Access denied."
 
-    # If admin section is not yet unlocked with "Azadirakhtaindica@007"
+    # If admin section is not yet unlocked with verified admin credentials
     if not session.get("admin_unlocked"):
         return render_template(
             "access_inbox.html",
