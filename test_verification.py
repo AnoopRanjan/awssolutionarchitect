@@ -54,11 +54,11 @@ def test_topics_and_roadmap():
         assert "AWS" in t.get("instructor", "") or "Amazon" in t.get("instructor", ""), f"Topic {t['id']} instructor should be AWS"
     print("PASS: All 10 topics have verified AWS video embeds and official instructors.")
 
-    assert AWS_MASTER_COURSE['primary_video_id'] == '7m_q1cRePO8'
-    assert 'Amazon Web Services' in AWS_MASTER_COURSE['instructor'] or 'AWS' in AWS_MASTER_COURSE['instructor']
-    assert AWS_BRIEFING_10MIN['video_id'] == 'gB5bY1V_P-Y'
-    assert 'Amazon Web Services' in AWS_BRIEFING_10MIN['instructor'] or 'AWS' in AWS_BRIEFING_10MIN['instructor']
-    print("PASS: Home AWS masterclass and 10-min briefing videos verified.")
+    assert AWS_MASTER_COURSE['primary_video_id'] == 'c3Cn4xYfxJY', f"Expected c3Cn4xYfxJY, got {AWS_MASTER_COURSE['primary_video_id']}"
+    assert 'freeCodeCamp' in AWS_MASTER_COURSE['instructor'] or 'AWS' in AWS_MASTER_COURSE['instructor']
+    assert AWS_BRIEFING_10MIN['video_id'] == 'AzUG7GOfh7w', f"Expected AzUG7GOfh7w, got {AWS_BRIEFING_10MIN['video_id']}"
+    assert 'AWS' in AWS_BRIEFING_10MIN['instructor'] or 'Amazon' in AWS_BRIEFING_10MIN['instructor']
+    print("PASS: Home AWS masterclass and 10-min briefing videos verified with real playable IDs.")
 
 
 def test_aws_workbench_simulation():

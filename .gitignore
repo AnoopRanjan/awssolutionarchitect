@@ -10,3 +10,4 @@ ENV/
 *.sqlite3
 learning_portal.db
 .vercel
+scratch/

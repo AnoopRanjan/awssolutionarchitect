@@ -149,41 +149,41 @@ Every day features official video embeds from **Amazon Web Services (AWS)**, **A
 
 | Phase | Days | Curriculum Phase | Primary AWS Services Covered | Official AWS Video ID |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1** | **Day 1** | Cloud Foundations & Global Infrastructure | Regions, AZs, Edge Locations, Points of Presence | `7m_q1cRePO8` |
+| **Phase 1** | **Day 1** | Cloud Foundations & Global Infrastructure | Regions, AZs, Edge Locations, Points of Presence | `PAr1DY82ymE` |
 | | **Day 2** | IAM Architecture & Zero Trust Security | IAM Roles, Policies, SCPs, Permission Boundaries | `YQsK4MtsELU` |
-| | **Day 3** | Resilient Compute & Amazon EC2 Deep Dive | Nitro System, Graviton3, Spot Instances, Placement Groups | `iaT44N0lK48` |
-| | **Day 4** | Security Groups, Network ACLs & EC2 Hardening | Stateful SGs vs Stateless NACLs, IMDSv2 Metadata | `k1Bydv7Lg1c` |
-| | **Day 5** | Elastic Load Balancing (ALB, NLB, GLB) | Weighted Target Groups, Path Routing, TLS Offloading | `Vq_jR7e7sFk` |
-| | **Day 6** | Auto Scaling Groups & Dynamic Scaling | Predictive Scaling, Target Tracking, Graceful Drain | `7V1Yv56U3uM` |
-| | **Day 7** | Elastic Beanstalk & Cloud Deployment Automation | Spring Boot JAR Deployment, Blue/Green Deployments | `q7z2fC1L6-s` |
-| **Phase 2** | **Day 8** | Amazon S3 Architecture & Storage Classes | S3 Standard, Intelligent-Tiering, Glacier Deep Archive | `r9jP0K8d1vI` |
-| | **Day 9** | S3 Security, Encryption & Lifecycle Management | SSE-KMS, S3 Object Lock (WORM), BlockPublicAccess | `6Qh4vYfW7qU` |
-| | **Day 10** | High-Performance Block & File Storage | EBS gp3/io2 Block Express, EFS Multi-AZ Mounting | `yX5m1aF9Kk0` |
-| | **Day 11** | Amazon VPC Architecture & Subnet CIDR Design | Public/Private Subnets, Internet Gateways, NAT Gateways | `hiKPPy581ng` |
-| | **Day 12** | Transit Gateway, VPC Peering & PrivateLink | Hub-and-Spoke VPC, Interface VPC Endpoints | `f_oZ4k8o2d4` |
-| | **Day 13** | Route 53 Global DNS & Traffic Routing | Latency Routing, Geolocation, Route 53 Health Checks | `WpX1s4K8nJo` |
-| | **Day 14** | Amazon CloudFront CDN & Edge Acceleration | Edge Caching, Origin Shield, Lambda@Edge, CloudFront Functions | `8mY1KkL8_5w` |
-| **Phase 3** | **Day 15** | Relational Database Scalability: Amazon RDS | Multi-AZ Failover, Read Replicas, Storage Autoscaling | `1l7e8s9XyZ0` |
-| | **Day 16** | Enterprise Database Modernization: Amazon Aurora | Aurora Global Database, Aurora Serverless v2, Storage Engine | `v_3E1vL9a8s` |
-| | **Day 17** | Connection Multiplexing: Amazon RDS Proxy | Solving HikariCP Connection Exhaustion, Instant Failover | `n3K8v1sL9m0` |
-| | **Day 18** | Amazon DynamoDB Single-Table Design | Partition Keys, Sort Keys, GSIs, Sub-10ms Queries | `6yqfmXiI3cA` |
-| | **Day 19** | Containerization on AWS: Amazon ECS Fargate | Serverless Docker Containers, Task Definitions, ALB Target Groups | `7bL9s1K2v8x` |
-| | **Day 20** | Enterprise Kubernetes: Amazon EKS Architecture | Managed Node Groups, Karpenter Autoscaling, IAM Roles for Service Accounts (IRSA) | `p4k8s1L0v9m` |
-| | **Day 21** | Serverless Java: AWS Lambda & SnapStart | Firecracker microVM Memory Snapshotting (CRaC), Sub-100ms Cold Starts | `q9v8s1K2L0m` |
-| **Phase 4** | **Day 22** | API Management: Amazon API Gateway | REST & HTTP APIs, Cognito Authorizers, Request Throttling | `k8s1v0L9m2a` |
-| | **Day 23** | Message Queues: Amazon SQS FIFO & Dead-Letter Queues | Decoupling Workflows, FIFO Message Deduplication, DLQ Redrive | `3k9s1vL8m0a` |
-| | **Day 24** | Publish/Subscribe Fan-Out: Amazon SNS | Event Fan-out to Queues & Lambdas, Message Filtering | `8v1sL9m0k2a` |
-| | **Day 25** | Event-Driven Architectures: Amazon EventBridge | Custom Event Buses, Schema Registry, Content Filtering | `9s1vL0k2m8a` |
-| | **Day 26** | Distributed Workflow Orchestration: AWS Step Functions | Saga Pattern, Distributed Transactions, Automated Rollbacks | `4k8s1vL9m0a` |
-| | **Day 27** | Real-Time Streaming: Amazon Kinesis Data Streams | Sharded Streams, Kinesis Consumer Application, Data Ingestion | `1sL9m0k2a8v` |
-| | **Day 28** | In-Memory Caching: Amazon ElastiCache Redis | Cache-Aside, Write-Through, Redis Cluster High Availability | `5k8s1vL9m2a` |
-| **Phase 5** | **Day 29** | Encryption & Key Management: AWS KMS & CloudHSM | Envelope Encryption, Customer Managed Keys (CMKs), Key Rotation | `7s1vL9m0k2a` |
-| | **Day 30** | Credential Governance: AWS Secrets Manager | Automated Database Credential Rotation, IAM Cross-Account | `2k8s1vL0m9a` |
-| | **Day 31** | Perimeter Protection: AWS WAF & AWS Shield | OWASP CRS Rules, Rate-Limiting, DDoS Mitigation | `6s1vL9m2k0a` |
-| | **Day 32** | Observability: CloudWatch Logs Insights & AWS X-Ray | Distributed Microservice Tracing, Metric Filters, Alarms | `9v0s1k2L8ma` |
-| | **Day 33** | Infrastructure as Code: AWS CDK in Java | CloudFormation Synthesizer, TypeScript to Java CDK, L2/L3 Constructs | `3s1vL9m0k8a` |
-| | **Day 34** | High Availability & Multi-Region Disaster Recovery | Active-Active vs Pilot Light, RPO / RTO Tradeoffs | `8k9s1vL0m2a` |
-| | **Day 35** | Well-Architected Framework & SAA-C03/SAP-C02 Exam Mastery | 6 Architectural Pillars, Complex Scenario Reviews, Exam Strategy | `1vL9m0k2s8a` |
+| | **Day 3** | Resilient Compute & Amazon EC2 Deep Dive | Nitro System, Graviton3, Spot Instances, Placement Groups | `2uc1vaEsPXU` |
+| | **Day 4** | Security Groups, Network ACLs & EC2 Hardening | Stateful SGs vs Stateless NACLs, Layered VPC Security | `Ya4WFO9P0i8` |
+| | **Day 5** | Elastic Load Balancing (ALB, NLB, GLB) | Weighted Target Groups, Path Routing, TLS Offloading | `6iO6wtDOKGM` |
+| | **Day 6** | Auto Scaling Groups & Dynamic Scaling | Predictive Scaling, Target Tracking, Graceful Drain | `nlGyIa3UQYU` |
+| | **Day 7** | Elastic Beanstalk & Cloud Deployment Automation | Spring Boot JAR Deployment, Blue/Green Deployments | `Ozc5Yu_IcaI` |
+| **Phase 2** | **Day 8** | Amazon S3 Architecture & Storage Classes | S3 Standard, Intelligent-Tiering, Glacier Deep Archive | `NXehLy7IiPM` |
+| | **Day 9** | S3 Security, Encryption & Lifecycle Management | SSE-KMS, S3 Object Lock (WORM), BlockPublicAccess | `WZGG8RkvApY` |
+| | **Day 10** | High-Performance Block & File Storage | EBS gp3/io2 Block Express, EFS Multi-AZ Mounting | `m03ICK5ZsA0` |
+| | **Day 11** | Amazon VPC Architecture & Subnet CIDR Design | Public/Private Subnets, Internet Gateways, NAT Gateways | `7qaSfmnFiI0` |
+| | **Day 12** | Transit Gateway, VPC Peering & PrivateLink | Hub-and-Spoke VPC, Interface VPC Endpoints | `9Nikqn_02Oc` |
+| | **Day 13** | Route 53 Global DNS & Traffic Routing | Latency Routing, Geolocation, Route 53 Health Checks | `mczl5zhQcYQ` |
+| | **Day 14** | Amazon CloudFront CDN & Edge Acceleration | Edge Caching, Origin Shield, Lambda@Edge, CloudFront Functions | `lLnKaPqL3u0` |
+| **Phase 3** | **Day 15** | Relational Database Scalability: Amazon RDS | Multi-AZ Failover, Read Replicas, Storage Autoscaling | `TJxC-B9Q9tQ` |
+| | **Day 16** | Enterprise Database Modernization: Amazon Aurora | Aurora Global Database, Aurora Serverless v2, Storage Engine | `kVVdHezNTpw` |
+| | **Day 17** | Connection Multiplexing: Amazon RDS Proxy | Solving HikariCP Connection Exhaustion, Instant Failover | `VFsGJIeuR_Y` |
+| | **Day 18** | Amazon DynamoDB Single-Table Design | Partition Keys, Sort Keys, GSIs, Sub-10ms Queries | `xfxBhvGpoa0` |
+| | **Day 19** | Containerization on AWS: Amazon ECS Fargate | Serverless Docker Containers, Task Definitions, ALB Target Groups | `l5otnYulOt8` |
+| | **Day 20** | Enterprise Kubernetes: Amazon EKS Architecture | Managed Node Groups, Karpenter Autoscaling, IRSA | `cipDJwDWWbY` |
+| | **Day 21** | Serverless Java: AWS Lambda & SnapStart | Firecracker microVM Memory Snapshotting (CRaC), Sub-100ms Cold Starts | `ZbnAithBNYY` |
+| **Phase 4** | **Day 22** | API Management: Amazon API Gateway | REST & HTTP APIs, Cognito Authorizers, Request Throttling | `GvyyJQ5m7x0` |
+| | **Day 23** | Message Queues: Amazon SQS FIFO & Dead-Letter Queues | Decoupling Workflows, FIFO Message Deduplication, DLQ Redrive | `8zysQqxgj0I` |
+| | **Day 24** | Publish/Subscribe Fan-Out: Amazon SNS | Event Fan-out to Queues & Lambdas, Message Filtering | `GWa2N3xe73M` |
+| | **Day 25** | Event-Driven Architectures: Amazon EventBridge | Custom Event Buses, Schema Registry, Content Filtering | `dy7UXS7ur14` |
+| | **Day 26** | Distributed Workflow Orchestration: AWS Step Functions | Saga Pattern, Distributed Transactions, Automated Rollbacks | `lDEbFPKGozA` |
+| | **Day 27** | Real-Time Streaming: Amazon Kinesis Data Streams | Sharded Streams, Kinesis Consumer Application, Data Ingestion | `HjoQllOWRmM` |
+| | **Day 28** | In-Memory Caching: Amazon ElastiCache Redis | Cache-Aside, Write-Through, Redis Cluster High Availability | `_YYBdsuUq2M` |
+| **Phase 5** | **Day 29** | Encryption & Key Management: AWS KMS & CloudHSM | Envelope Encryption, Customer Managed Keys (CMKs), Key Rotation | `9vr3oMODIUE` |
+| | **Day 30** | Perimeter Protection: AWS WAF & AWS Shield | OWASP CRS Rules, Rate-Limiting, DDoS Mitigation | `E_xm8W_BEFk` |
+| | **Day 31** | Observability: CloudWatch Logs Insights & AWS X-Ray | Distributed Microservice Tracing, Metric Filters, Alarms | `qXLsx4r37_0` |
+| | **Day 32** | Infrastructure as Code: AWS CDK in Java | CloudFormation Synthesizer, TypeScript to Java CDK, L2/L3 Constructs | `Wzawix9bMAE` |
+| | **Day 33** | High Availability & Multi-Region Disaster Recovery | Active-Active vs Pilot Light, RPO / RTO Tradeoffs | `PnWTWjmbNp0` |
+| | **Day 34** | Well-Architected Framework: The 6 Pillars | Operational Excellence, Security, Reliability, Performance, Cost, Sustainability | `nOKvA8HykW8` |
+| | **Day 35** | AWS Certified Solutions Architect Associate (SAA-C03) Capstone | Complete Exam Blueprint, Full Scenario Reviews & System Design Pitch | `c3Cn4xYfxJY` |
 
 ---
 

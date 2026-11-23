@@ -112,9 +112,9 @@ TOPICS = [
                 "desc": "Compute-optimized, Memory-optimized, and General Purpose Graviton instances."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/Vq_jR7e7sFk",
-        "youtube_title": "AWS re:Invent: Deep Dive on Elastic Load Balancing (ALB & NLB)",
-        "youtube_url": "https://www.youtube.com/watch?v=Vq_jR7e7sFk",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/EhbFossuQhI",
+        "youtube_title": "AWS re:Invent 2024 - Optimizing ELB traffic distribution for high availability (NET401)",
+        "youtube_url": "https://www.youtube.com/watch?v=EhbFossuQhI",
         "instructor": "AWS Events (Official re:Invent Masterclass)",
         "duration": "1h 08m (Official Masterclass Course)",
         "core_concepts": [
@@ -177,9 +177,9 @@ TOPICS = [
                 "desc": "CIDR block planning, public/private subnets, Internet Gateways, and NAT Gateways."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/hiKPPy581ng",
-        "youtube_title": "AWS re:Invent: Deep Dive on Amazon VPC Networking (Matt Lehwess)",
-        "youtube_url": "https://www.youtube.com/watch?v=hiKPPy581ng",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/7qaSfmnFiI0",
+        "youtube_title": "AWS re:Invent 2024 - Amazon VPC: Advanced design and what's new (NET301)",
+        "youtube_url": "https://www.youtube.com/watch?v=7qaSfmnFiI0",
         "instructor": "AWS Events (Matt Lehwess - Principal Solutions Architect)",
         "duration": "1h 14m (Canonical Masterclass)",
         "core_concepts": [
@@ -243,9 +243,9 @@ TOPICS = [
                 "desc": "Standard, Intelligent-Tiering, Glacier, and automated transitions."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/r9jP0K8d1vI",
-        "youtube_title": "AWS re:Invent: Deep Dive on Amazon S3 Architecture & Performance",
-        "youtube_url": "https://www.youtube.com/watch?v=r9jP0K8d1vI",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/NXehLy7IiPM",
+        "youtube_title": "AWS re:Invent 2024 - Dive deep on Amazon S3 (STG302)",
+        "youtube_url": "https://www.youtube.com/watch?v=NXehLy7IiPM",
         "instructor": "AWS Events (Official re:Invent Masterclass)",
         "duration": "1h 10m (Official Masterclass Course)",
         "core_concepts": [
@@ -308,9 +308,9 @@ TOPICS = [
                 "desc": "Distributed log-structured storage, 6 copies across 3 AZs, and auto-repairing data blocks."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/v_3E1vL9a8s",
-        "youtube_title": "AWS re:Invent: Deep Dive on Amazon Aurora Architecture and Innovations",
-        "youtube_url": "https://www.youtube.com/watch?v=v_3E1vL9a8s",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/kVVdHezNTpw",
+        "youtube_title": "AWS re:Invent 2024 - Deep dive into Amazon Aurora and its innovations (DAT405)",
+        "youtube_url": "https://www.youtube.com/watch?v=kVVdHezNTpw",
         "instructor": "AWS Events (Official re:Invent Masterclass)",
         "duration": "1h 15m (Official Masterclass Course)",
         "core_concepts": [
@@ -373,9 +373,9 @@ TOPICS = [
                 "desc": "Tables, items, attributes, partition keys, composite primary keys, and capacity modes."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/6yqfmXiI3cA",
-        "youtube_title": "AWS re:Invent: Amazon DynamoDB Deep Dive: Advanced Design Patterns (Rick Houlihan)",
-        "youtube_url": "https://www.youtube.com/watch?v=6yqfmXiI3cA",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/xfxBhvGpoa0",
+        "youtube_title": "AWS re:Invent 2021 - DynamoDB deep dive: Advanced design patterns (Rick Houlihan)",
+        "youtube_url": "https://www.youtube.com/watch?v=xfxBhvGpoa0",
         "instructor": "AWS Events (Rick Houlihan - Principal Solutions Architect)",
         "duration": "1h 18m (Legendary Masterclass)",
         "core_concepts": [
@@ -438,9 +438,9 @@ TOPICS = [
                 "desc": "Task Definitions, Fargate serverless containers, capacity providers, and rolling deployments."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/7bL9s1K2v8x",
-        "youtube_title": "AWS re:Invent: Running Containers at Scale with Amazon ECS & AWS Fargate",
-        "youtube_url": "https://www.youtube.com/watch?v=7bL9s1K2v8x",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/l5otnYulOt8",
+        "youtube_title": "AWS re:Invent 2024 - Deep dive into Amazon ECS resilience and availability (SVS409)",
+        "youtube_url": "https://www.youtube.com/watch?v=l5otnYulOt8",
         "instructor": "AWS Events (Official re:Invent Technical Deep Dive)",
         "duration": "1h 05m (Technical Deep Dive Course)",
         "core_concepts": [
@@ -503,9 +503,9 @@ TOPICS = [
                 "desc": "Firecracker microVM snapshotting and sub-100ms cold starts."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/q9v8s1K2L0m",
-        "youtube_title": "AWS re:Invent: Deep Dive into AWS Lambda with Java and SnapStart",
-        "youtube_url": "https://www.youtube.com/watch?v=q9v8s1K2L0m",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/ZbnAithBNYY",
+        "youtube_title": "AWS re:Invent 2022 - AWS Lambda SnapStart: Fast cold starts for your Java functions (SVS320)",
+        "youtube_url": "https://www.youtube.com/watch?v=ZbnAithBNYY",
         "instructor": "AWS Events (Mark Sailes - Principal Serverless Specialist)",
         "duration": "1h 02m (Official Masterclass Course)",
         "core_concepts": [
@@ -568,9 +568,9 @@ TOPICS = [
                 "desc": "Standard vs FIFO queues, visibility timeout, long polling, and dead letter queues."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/3k9s1vL8m0a",
-        "youtube_title": "AWS re:Invent: Enterprise Integration and Decoupling with Amazon SQS and SNS",
-        "youtube_url": "https://www.youtube.com/watch?v=3k9s1vL8m0a",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/dy7UXS7ur14",
+        "youtube_title": "AWS re:Invent 2024 - Event-driven architectures at scale: Manage millions of events (API307)",
+        "youtube_url": "https://www.youtube.com/watch?v=dy7UXS7ur14",
         "instructor": "AWS Events (Official re:Invent Masterclass)",
         "duration": "1h 07m (Official Masterclass Course)",
         "core_concepts": [
@@ -633,9 +633,9 @@ TOPICS = [
                 "desc": "Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability."
             }
         ],
-        "youtube_embed": "https://www.youtube-nocookie.com/embed/8k9s1vL0m2a",
-        "youtube_title": "AWS re:Invent: Applying the AWS Well-Architected Framework to Real-World Systems",
-        "youtube_url": "https://www.youtube.com/watch?v=8k9s1vL0m2a",
+        "youtube_embed": "https://www.youtube-nocookie.com/embed/nOKvA8HykW8",
+        "youtube_title": "AWS re:Invent 2022 - The well-architected way (ARC210)",
+        "youtube_url": "https://www.youtube.com/watch?v=nOKvA8HykW8",
         "instructor": "AWS Events (Official re:Invent Technical Session)",
         "duration": "1h 05m (Official Masterclass Course)",
         "core_concepts": [

@@ -8,12 +8,12 @@ and the 5 core cloud modernization pillars.
 AWS_MASTER_COURSE = {
     "title": "AWS Certified Solutions Architect & Enterprise Modernization Masterclass",
     "subtitle": "Bridging Java Enterprise Applications to High-Availability Cloud Architecture on AWS",
-    "primary_video_id": "7m_q1cRePO8",
-    "primary_video_title": "AWS re:Invent: Architecture Best Practices & Global Cloud Resilience",
-    "instructor": "Amazon Web Services (Official AWS Events & Architecture Team)",
-    "duration": "3h 15m (Comprehensive Masterclass)",
-    "embed_url": "https://www.youtube-nocookie.com/embed/7m_q1cRePO8",
-    "watch_url": "https://www.youtube.com/watch?v=7m_q1cRePO8",
+    "primary_video_id": "c3Cn4xYfxJY",
+    "primary_video_title": "AWS Solutions Architect Associate Certification (SAA-C03) – Full Course to PASS the Exam",
+    "instructor": "freeCodeCamp.org & Andrew Brown (Official ExamPro AWS Masterclass)",
+    "duration": "13h 26m (Full Comprehensive Masterclass)",
+    "embed_url": "https://www.youtube-nocookie.com/embed/c3Cn4xYfxJY",
+    "watch_url": "https://www.youtube.com/watch?v=c3Cn4xYfxJY",
     "description": (
         "An intensive, master-level architectural blueprint designed to elevate simple Java developers into "
         "AWS Solutions Architects. Covers cloud-native application transformation: moving from monolithic Spring Boot "
@@ -54,12 +54,12 @@ FDE_MASTER_COURSE = AWS_MASTER_COURSE
 
 AWS_BRIEFING_10MIN = {
     "title": "Executive Architecture Briefing: Scaling on AWS for the First 10 Million Users",
-    "video_id": "gB5bY1V_P-Y",
-    "video_title": "AWS re:Invent: Scaling on AWS From Single Server to Global Scale",
-    "instructor": "Amazon Web Services (Official AWS Events)",
-    "duration": "14m 20s (Executive Briefing)",
-    "embed_url": "https://www.youtube-nocookie.com/embed/gB5bY1V_P-Y",
-    "watch_url": "https://www.youtube.com/watch?v=gB5bY1V_P-Y",
+    "video_id": "AzUG7GOfh7w",
+    "video_title": "AWS re:Invent 2024 - Scaling on AWS for the first 10 million users (ARC201)",
+    "instructor": "AWS Events (Official re:Invent)",
+    "duration": "57m (Executive Architecture Briefing)",
+    "embed_url": "https://www.youtube-nocookie.com/embed/AzUG7GOfh7w",
+    "watch_url": "https://www.youtube.com/watch?v=AzUG7GOfh7w",
     "summary": (
         "A fast-paced executive walk-through showing how a basic monolithic application (such as a Java Spring Boot backend "
         "with single-node MySQL) evolves stage-by-stage into a fault-tolerant, horizontally auto-scaled, multi-AZ system "

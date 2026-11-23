@@ -1,0 +1,117 @@
+{
+  "Day 1 (Global Infra)": {
+    "vid": "PAr1DY82ymE",
+    "title": "AWS re:Invent 2024 - Anatomy of an AWS Region (ARC204)",
+    "author": "AWS Events"
+  },
+  "Day 3 (EC2 Nitro)": {
+    "vid": "2uc1vaEsPXU",
+    "title": "AWS re:Invent 2021 - Powering next-gen Amazon EC2: Deep dive on the Nitro System",
+    "author": "AWS Events"
+  },
+  "Day 4 (Security Groups)": {
+    "vid": "Ya4WFO9P0i8",
+    "title": "AWS re:Invent 2022 - Layered VPC security and inspection (NET311)",
+    "author": "AWS Events"
+  },
+  "Day 6 (Auto Scaling)": {
+    "vid": "nlGyIa3UQYU",
+    "title": "AWS re:Invent 2023 - Strategies for automated scaling, remediation, and smart self-healing (ENT107)",
+    "author": "AWS Events"
+  },
+  "Day 7 (Elastic Beanstalk)": {
+    "vid": "Ozc5Yu_IcaI",
+    "title": "Deploy Java Web Application in AWS Elastic Beanstalk | AWS Tutorial for Beginners | Edureka",
+    "author": "edureka!"
+  },
+  "Day 9 (S3 Security)": {
+    "vid": "WZGG8RkvApY",
+    "title": "AWS re:Invent 2023 - Amazon S3 security and access control best practices (STG315)",
+    "author": "AWS Events"
+  },
+  "Day 10 (EFS)": {
+    "vid": "m03ICK5ZsA0",
+    "title": "AWS re:Invent 2024 - Simple Elastic File Systems: A Deep Dive into Amazon EFS (STG344)",
+    "author": "AWS Events"
+  },
+  "Day 12 (Transit Gateway)": {
+    "vid": "9Nikqn_02Oc",
+    "title": "AWS re:Invent 2019: [REPEAT 1] AWS Transit Gateway reference architectures for many VPCs (NET406-R1)",
+    "author": "AWS Events"
+  },
+  "Day 13 (Route 53)": {
+    "vid": "mczl5zhQcYQ",
+    "title": "AWS re:Invent 2022 - Amazon Route 53: What\u2019s in a domain name? A lot! (NET206)",
+    "author": "AWS Events"
+  },
+  "Day 14 (CloudFront)": {
+    "vid": "lLnKaPqL3u0",
+    "title": "AWS re:Invent 2024 -Amazon CloudFront: Enhancing web performance one HTTP request at a time (CDN308)",
+    "author": "AWS Events"
+  },
+  "Day 15 (RDS)": {
+    "vid": "TJxC-B9Q9tQ",
+    "title": "AWS re:Invent 2017: Deep Dive on Amazon Relational Database Service (RDS) (DAT302)",
+    "author": "Amazon Web Services"
+  },
+  "Day 17 (RDS Proxy)": {
+    "vid": "VFsGJIeuR_Y",
+    "title": "AWS re:Invent 2020: Deep dive into Amazon RDS Proxy for scaling applications",
+    "author": "AWS Events"
+  },
+  "Day 20 (EKS)": {
+    "vid": "cipDJwDWWbY",
+    "title": "AWS re:Invent 2021 - Deep dive on Amazon EKS",
+    "author": "AWS Events"
+  },
+  "Day 22 (API Gateway)": {
+    "vid": "GvyyJQ5m7x0",
+    "title": "AWS re:Invent 2024 - Scaling and securing private workloads using Amazon API Gateway (SVS318)",
+    "author": "AWS Events"
+  },
+  "Day 23 (SQS)": {
+    "vid": "8zysQqxgj0I",
+    "title": "AWS re:Invent 2020: Scalable serverless event-driven architectures with SNS, SQS & Lambda",
+    "author": "AWS Events"
+  },
+  "Day 24 (SNS)": {
+    "vid": "GWa2N3xe73M",
+    "title": "AWS re:Invent 2023 - Using AWS Lambda to process Amazon SQS and Amazon SNS messages (SVS212)",
+    "author": "AWS Events"
+  },
+  "Day 26 (Step Functions)": {
+    "vid": "lDEbFPKGozA",
+    "title": "Understanding the SAGA pattern with AWS Step Functions - With Demo",
+    "author": "FooBar Serverless"
+  },
+  "Day 28 (ElastiCache)": {
+    "vid": "_YYBdsuUq2M",
+    "title": "AWS re:Invent 2017: ElastiCache Deep Dive: Best Practices and Usage Patterns (DAT305)",
+    "author": "Amazon Web Services"
+  },
+  "Day 29 (KMS)": {
+    "vid": "9vr3oMODIUE",
+    "title": "AWS re:Invent 2022 - Protecting secrets, keys, and data: Cryptography for the long term (SEC403)",
+    "author": "AWS Events"
+  },
+  "Day 30 (WAF)": {
+    "vid": "E_xm8W_BEFk",
+    "title": "AWS re:Invent 2025 - A day in the life of an AWS WAF administrator (NET317)",
+    "author": "AWS Events"
+  },
+  "Day 31 (Observability)": {
+    "vid": "qXLsx4r37_0",
+    "title": "AWS re:Invent 2020: AWS X-Ray & Amazon CloudWatch: Increasing visibility for ECS & Fargate",
+    "author": "AWS Events"
+  },
+  "Day 32 (CDK)": {
+    "vid": "Wzawix9bMAE",
+    "title": "AWS re:Invent 2023 - Advanced AWS CDK: Lessons learned from 4 years of use  (COM302)",
+    "author": "AWS Events"
+  },
+  "Day 33 (Disaster Recovery)": {
+    "vid": "PnWTWjmbNp0",
+    "title": "AWS re:Invent 2025 - Building resilient multi-Region applications with Capital One (ARC404)",
+    "author": "AWS Events"
+  }
+}
