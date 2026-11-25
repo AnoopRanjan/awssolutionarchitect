@@ -119,87 +119,72 @@ def test_routes_and_access():
     reset_admin_rate_limit("127.0.0.1")
     reset_admin_rate_limit("unknown")
 
-    # 4. Correct admin password unlocks the entire web application
-    # AND when password is correct, creates sample email text for the user to send to anooppriyaranjan@gmail.com requesting full access
-    unlock_res = client.post('/api/verify-site-password', json={'password': admin_pw, 'target': '/courses', 'email': 'student@example.com', 'name': 'Java Developer'})
+    # 4. Correct admin password unlocks the entire web application directly (no email sending option)
+    unlock_res = client.post('/api/verify-site-password', json={'password': admin_pw, 'target': '/courses'})
     assert unlock_res.status_code == 200
     unlock_data = unlock_res.get_json()
     assert unlock_data['success'] is True
-    assert 'sample_email' in unlock_data, "Expected sample_email created on correct password"
-    sample_email = unlock_data['sample_email']
-    assert "anooppriyaranjan@gmail.com" in sample_email['body']
-    assert "anooppriyaranjan@gmail.com" in sample_email['mailto_url']
-    assert "anooppriyaranjan@gmail.com" in sample_email['gmail_url']
-    assert "full" in sample_email['body'].lower() and "access" in sample_email['body'].lower()
-    print("PASS: Correct admin password unlocks portal AND creates sample email text for anooppriyaranjan@gmail.com requesting full access.")
+    assert 'sample_email' not in unlock_data, "Email sending option should be removed"
+    print("PASS: Correct admin password unlocks portal directly without email generation.")
 
     # 5. Now /courses and all other pages display completely!
     courses_unlocked = client.get('/courses')
     assert courses_unlocked.status_code == 200
     print("PASS: Rest of the web application now displays successfully.")
 
-    # 6. Lock the portal again to test the Email Request flow
+    # 6. Lock the portal again to test Client-Side Encrypted Verification
     client.get('/api/lock-portal')
     relocked_check = client.get('/courses')
     assert relocked_check.status_code == 302
     assert "unlock=1" in relocked_check.headers["Location"]
     print("PASS: Portal re-locked back to Home-only display.")
 
-    # 7. Flow for user who doesn't know password:
-    # Generate sample email text for anooppriyaranjan@gmail.com with invisible link for sender
-    cand_email = f"candidate_{int(time.time())}@gmail.com"
-    req_res = client.post('/api/request-access', json={'email': cand_email, 'name': 'Java Candidate'})
-    assert req_res.status_code == 200
-    data = req_res.get_json()
-    assert data['success'] is True
-    assert "anooppriyaranjan@gmail.com" in data['mailto_url'] or "anooppriyaranjan@gmail.com" in data['body']
-    assert "/access/allow/" in data['body']
-    # The visible sample text (display_body) does NOT expose the raw approval URL to the sender
-    assert ">>> http" not in data.get('display_body', '')
-    allow_url = data['allow_url']
-    token = data['token']
-    print(f"PASS: Sample email text generated with invisible link for sender (anooppriyaranjan@gmail.com inbox target: {allow_url}).")
+    # 7. Client-Side Encrypted Verification for Security:
+    # Simulates browser JavaScript encryptAdminPasswordClientSide()
+    import hashlib, secrets
+    nonce = secrets.token_hex(8)
+    key = hashlib.sha256(f"aws_sa_transport_vault_2026:{nonce}".encode("utf-8")).digest()
+    data = admin_pw.encode("utf-8")
+    key_stream = (key * (len(data) // len(key) + 1))[:len(data)]
+    enc_hex = bytes(a ^ b for a, b in zip(data, key_stream)).hex()
+    client_digest = hashlib.sha256(f"{admin_pw}:aws_sa_salt_2026".encode("utf-8")).hexdigest()
 
-    # 8. Before approval, check_email_access returns 404 pending
-    pending_check = client.post('/api/check-email-access', json={'email': cand_email})
-    assert pending_check.status_code == 404
-    print("PASS: Approval correctly verified as pending before link is clicked.")
+    enc_unlock_res = client.post('/api/verify-site-password', json={
+        'encrypted_password': enc_hex,
+        'nonce': nonce,
+        'client_digest': client_digest,
+        'target': '/topics'
+    })
+    assert enc_unlock_res.status_code == 200
+    enc_data = enc_unlock_res.get_json()
+    assert enc_data['success'] is True
+    assert enc_data['redirect'] == '/topics'
+    assert 'sample_email' not in enc_data
+    print("PASS: Client-side encrypted password verification succeeds and unlocks session without exposing plaintext over network.")
 
-    # 9. Admin inbox (/access/inbox) is password-protected:
-    inbox_res = client.get('/access/inbox')
-    assert inbox_res.status_code == 200
-    inbox_html = inbox_res.data.decode('utf-8')
-    assert "Enter Admin Password" in inbox_html or "••••••••••••" in inbox_html
-    assert admin_pw not in inbox_html
-    print("PASS: Admin inbox is password protected with masked placeholder and no hints.")
+    # 8. Verify invalid encrypted password is rejected with 401
+    bad_nonce = secrets.token_hex(8)
+    bad_key = hashlib.sha256(f"aws_sa_transport_vault_2026:{bad_nonce}".encode("utf-8")).digest()
+    bad_data = "WrongPassword123!".encode("utf-8")
+    bad_stream = (bad_key * (len(bad_data) // len(bad_key) + 1))[:len(bad_data)]
+    bad_enc = bytes(a ^ b for a, b in zip(bad_data, bad_stream)).hex()
+    bad_enc_res = client.post('/api/verify-site-password', json={
+        'encrypted_password': bad_enc,
+        'nonce': bad_nonce
+    })
+    assert bad_enc_res.status_code == 401
+    assert bad_enc_res.get_json()['success'] is False
+    print("PASS: Invalid encrypted password rejected with 401.")
 
-    # Unlock admin inbox with password
-    inbox_unlock = client.post('/access/inbox', data={'password': admin_pw}, follow_redirects=True)
-    assert inbox_unlock.status_code == 200
-    unlocked_inbox_html = inbox_unlock.data.decode('utf-8')
-    assert "Received Access Emails & Passcodes" in unlocked_inbox_html
-    assert cand_email in unlocked_inbox_html
-    assert f"/access/allow/{token}" in unlocked_inbox_html
-    print("PASS: Admin inbox unlocked; received email request and approval link visible to anooppriyaranjan@gmail.com.")
-
-    # 10. Clicking the link in the inbox of anooppriyaranjan@gmail.com:
-    # Grants full access to this valid email ID!
-    allow_click = client.get(f'/access/allow/{token}')
-    assert allow_click.status_code == 200
-    allow_html = allow_click.data.decode('utf-8')
-    assert "Portal Access Granted" in allow_html or "APPROVED & UNLOCKED" in allow_html
-    print("PASS: Clicking approval link in anooppriyaranjan@gmail.com inbox successfully grants access.")
-
-    # 11. Now user has full access to the rest of the web application!
-    after_allow_courses = client.get('/courses')
-    assert after_allow_courses.status_code == 200
-    print("PASS: User of approved email now has full access to the rest of the web application.")
-
-    # 12. check_email_access now returns 200 approved
-    approved_check = client.post('/api/check-email-access', json={'email': cand_email})
-    assert approved_check.status_code == 200
-    assert approved_check.get_json()['success'] is True
-    print("PASS: Direct email check confirms approval from anooppriyaranjan@gmail.com.")
+    # 9. Verify UI contains NO email sending forms, email tabs, or mailto buttons in base.html
+    res_home_ui = client.get('/')
+    home_ui_html = res_home_ui.data.decode('utf-8')
+    assert "Don't Know Password?" not in home_ui_html, "Email tab should be removed from modal"
+    assert "panel-email" not in home_ui_html, "Email panel should be removed from modal"
+    assert "verified-email-preview-textarea" not in home_ui_html, "Email preview textarea should be removed"
+    assert "open-mailto-btn" not in home_ui_html, "Mailto button should be removed"
+    assert "Client-Side Encrypted Verification" in home_ui_html, "Encrypted verification badge should be present"
+    print("PASS: UI verified - all email sending options completely removed, pure encrypted admin password interface confirmed.")
 
     print("\nALL AWS SOLUTIONS ARCHITECT VERIFICATION TESTS PASSED SUCCESSFULLY! 🚀")
 

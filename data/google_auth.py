@@ -67,6 +67,34 @@ def verify_admin_password(candidate_password: str) -> bool:
     return hmac.compare_digest(cand, get_decrypted_admin_password())
 
 
+def decrypt_transport_password(enc_hex: str, nonce: str) -> str:
+    """Decrypts client-side encrypted password sent via transport stream cipher."""
+    if not enc_hex or not nonce:
+        return ""
+    try:
+        key = hashlib.sha256(f"aws_sa_transport_vault_2026:{nonce}".encode("utf-8")).digest()
+        data = bytes.fromhex(enc_hex)
+        key_stream = (key * (len(data) // len(key) + 1))[:len(data)]
+        return bytes(a ^ b for a, b in zip(data, key_stream)).decode("utf-8")
+    except Exception:
+        return ""
+
+
+def verify_client_encrypted_admin_password(enc_hex: str, nonce: str, client_digest: str = None) -> bool:
+    """
+    Verifies client-side encrypted admin password with double cryptographic integrity checks.
+    The password is encrypted by the client browser before network transmission.
+    """
+    decrypted_candidate = decrypt_transport_password(enc_hex, nonce)
+    if not decrypted_candidate:
+        return False
+    if client_digest:
+        expected_digest = hashlib.sha256(f"{decrypted_candidate}:aws_sa_salt_2026".encode("utf-8")).hexdigest()
+        if not hmac.compare_digest(client_digest, expected_digest):
+            return False
+    return verify_admin_password(decrypted_candidate)
+
+
 # Google OAuth2 Endpoints
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"

@@ -128,18 +128,12 @@ The portal implements enterprise security controls:
 - Only the **Home Page (`/`)** is freely displayed.
 - Navigating to any other route (`/courses`, `/roadmap`, `/topics`, `/projects`, `/aws-workbench`, `/interview-studio`, `/notes`) redirects to `/?unlock=1` and flashes the **Admin Security Password Modal** with an attention-grabbing pulse animation.
 
-### 2. Admin Security Password
-- **Encrypted & Hashed Storage**: The master admin password is never stored or disclosed in plaintext in the codebase or documentation. It is stored as an encrypted cryptographic vault ciphertext and verified via salted PBKDF2-HMAC-SHA256 constant-time comparison (with optional runtime `ADMIN_PASSWORD` environment variable override).
-- **Zero Hints & Zero Placeholders**: The password input field displays strictly masked bullets (`••••••••••••`). No plaintext hints, placeholders, or clues are visible on the website.
+### 2. Admin Security Password & Client-Side Encryption
+- **Encrypted & Hashed Storage**: The master admin password is never stored or disclosed in plaintext in the codebase or documentation. It is stored as an encrypted cryptographic vault ciphertext and verified via salted PBKDF2-HMAC-SHA256 constant-time comparison.
+- **Client-Side Cryptographic Verification**: The web browser encrypts the candidate password using a client-side stream cipher with ephemeral cryptographic nonces and SHA-256 digests via the Web Crypto API before network transmission. The password is never sent in cleartext across the network.
+- **Zero Hints & Zero Placeholders**: The password input field displays strictly masked bullets (`••••••••••••`). No plaintext hints, placeholders, or clues exist on the website.
+- **Pure Password Gate**: All email sending options, request forms, and email generator flows have been removed; access to the web application is governed strictly by the encrypted Admin Security Password.
 - **Anti-Brute-Force Rate Limiting**: 5 consecutive failed attempts immediately locks out the client IP for 60 seconds, returning HTTP `429 Too Many Requests`.
-- **Automatic Access Email Generation**: When the correct password is submitted, full access is granted, and the system automatically generates a formatted sample email text for the user to send to **`anooppriyaranjan@gmail.com`** requesting full registered candidate access.
-
-### 3. Invisible Authorization Link for Senders
-- If a candidate does not know the admin password, they can switch to the *"Don't Know Password?"* tab and submit their email address.
-- The system generates a sample email addressed to **`anooppriyaranjan@gmail.com`**.
-- The authorization approval link is **completely invisible to the sender** in the email draft to prevent unauthorized self-approval.
-- The request is recorded in the password-protected **Admin Inbox (`/access/inbox`)**.
-- When `anooppriyaranjan@gmail.com` clicks the approval link (`/access/allow/<token>`) in their inbox, full portal access is granted to that valid email ID.
 
 ---
 

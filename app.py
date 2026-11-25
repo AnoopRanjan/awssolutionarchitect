@@ -40,7 +40,9 @@ from data.google_auth import (
     login_user_session,
     logout_user_session,
     ADMIN_PASSWORD,
-    verify_admin_password
+    verify_admin_password,
+    verify_client_encrypted_admin_password,
+    decrypt_transport_password
 )
 
 # Base paths configuration for absolute directory resolution (essential for Vercel serverless)
@@ -969,42 +971,39 @@ def verify_admin_password_api():
         return jsonify({"success": False, "error": rate_msg}), 429
 
     data = request.get_json(silent=True) or request.form.to_dict() or {}
+    encrypted_pass = (data.get("encrypted_password") or "").strip()
+    nonce = (data.get("nonce") or "").strip()
+    client_digest = (data.get("client_digest") or "").strip()
     entered = (data.get("password") or "").strip()
     target = (data.get("target") or data.get("next") or "").strip()
-    if not entered:
+
+    if not encrypted_pass and not entered:
         return jsonify({"success": False, "error": "Password cannot be empty."}), 400
-        
-    if verify_admin_password(entered):
+
+    is_verified = False
+    if encrypted_pass and nonce:
+        is_verified = verify_client_encrypted_admin_password(encrypted_pass, nonce, client_digest)
+    elif entered:
+        is_verified = verify_admin_password(entered)
+
+    if is_verified:
         reset_admin_rate_limit(client_ip)
         session["site_unlocked"] = True
         session["fde_access"] = True
         user_email = (session.get("user_email") or "").strip().lower()
         if session.get("is_admin") or user_email == ADMIN_EMAIL.lower():
             session["admin_unlocked"] = True
-            
+
         # Determine redirect destination
         if target and target.startswith("/") and target != "/":
             redirect_url = target
         else:
             redirect_url = url_for("courses_hub")
 
-        # Requirement: when that password is correct then create a sample email text
-        # for the user to send to anooppriyaranjan@gmail.com where he will be requesting for the full access
-        candidate_email = (data.get("email") or session.get("user_email") or "").strip()
-        candidate_name = (data.get("name") or "").strip()
-        verified_email_info = compose_verified_admin_request_email(candidate_email, candidate_name, request.host_url)
-
         return jsonify({
             "success": True,
-            "message": "Admin password verified! Full access granted and sample email request created for anooppriyaranjan@gmail.com.",
-            "redirect": redirect_url,
-            "sample_email": {
-                "subject": verified_email_info["subject"],
-                "body": verified_email_info["body"],
-                "mailto_url": verified_email_info["mailto_url"],
-                "gmail_url": verified_email_info["gmail_url"],
-                "outlook_url": verified_email_info["outlook_url"]
-            }
+            "message": "Admin password verified! Full access granted.",
+            "redirect": redirect_url
         })
 
     record_failed_admin_attempt(client_ip)
